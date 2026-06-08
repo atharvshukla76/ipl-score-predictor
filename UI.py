@@ -17,19 +17,19 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-# Custom CSS for a premium look
+# Custom CSS for a premium look (injected via st.html)
 # ─────────────────────────────────────────────
-st.markdown("""
+st.html("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-    /* Global */
+    /* Global styling */
     .stApp {
-        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+        font-family: 'Inter', sans-serif !important;
     }
 
-    /* Title styling */
+    /* Titles */
     .main-title {
         text-align: center;
         padding: 1.5rem 0 0.5rem 0;
@@ -55,20 +55,20 @@ st.markdown("""
         font-weight: 400;
     }
 
-    /* Cards */
-    .glass-card {
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
-        padding: 1.8rem;
-        margin-bottom: 1.2rem;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+    /* Style the customized containers using the key classes */
+    .st-key-match-setup, .st-key-player-details, .st-key-match-status {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 16px !important;
+        padding: 1.8rem !important;
+        margin-bottom: 1.2rem !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
     }
 
     .card-header {
-        font-size: 1.15rem;
-        font-weight: 600;
+        font-size: 1.25rem;
+        font-weight: 700;
         color: #ffd200;
         margin-bottom: 1rem;
         display: flex;
@@ -114,15 +114,7 @@ st.markdown("""
         margin-top: 0.5rem;
     }
 
-    /* Loading */
-    .loading-msg {
-        text-align: center;
-        color: #ffd200;
-        font-size: 1.2rem;
-        padding: 2rem;
-    }
-
-    /* Selectbox and inputs */
+    /* Inputs styling override */
     .stSelectbox > div > div,
     .stNumberInput > div > div > input {
         background-color: rgba(255,255,255,0.08) !important;
@@ -155,13 +147,7 @@ st.markdown("""
     .stButton > button:hover {
         transform: translateY(-2px) !important;
         box-shadow: 0 8px 25px rgba(247,151,30,0.35) !important;
-    }
-
-    /* Divider */
-    hr {
-        border: none;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        margin: 1.5rem 0;
+        color: #1a1a2e !important;
     }
 
     /* Footer */
@@ -171,13 +157,8 @@ st.markdown("""
         font-size: 0.8rem;
         padding: 2rem 0 1rem 0;
     }
-
-    /* Hide default streamlit elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
 </style>
-""", unsafe_allow_html=True)
+""")
 
 
 # ─────────────────────────────────────────────
@@ -190,64 +171,56 @@ def load_model():
     return train_model()
 
 
-# Show loading UI while model trains
-st.markdown('<div class="main-title">🏏 IPL Score Predictor</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">AI-powered match score prediction using Deep Learning</div>', unsafe_allow_html=True)
+# Title blocks using clean st.html
+st.html('<div class="main-title">🏏 IPL Score Predictor</div>')
+st.html('<div class="sub-title">AI-powered match score prediction using Random Forest Regressor</div>')
 
-with st.spinner("🔄 Training the neural network model... This may take a minute on first load."):
+with st.spinner("🔄 Training the machine learning model..."):
     model, scaler, label_encoders = load_model()
 
 
 # ─────────────────────────────────────────────
 # Team Selection Card
 # ─────────────────────────────────────────────
-st.markdown('<div class="glass-card"><div class="card-header">🏟️ Match Setup</div>', unsafe_allow_html=True)
+with st.container(key="match-setup"):
+    st.html('<div class="card-header">🏟️ Match Setup</div>')
+    col1, col2 = st.columns(2)
+    with col1:
+        bat_team = st.selectbox("🏏 Batting Team", label_encoders['bat_team'].classes_)
+    with col2:
+        default_bowl_idx = min(1, len(label_encoders['bowl_team'].classes_) - 1)
+        bowl_team = st.selectbox("⚾ Bowling Team", label_encoders['bowl_team'].classes_, index=default_bowl_idx)
 
-col1, col2 = st.columns(2)
-with col1:
-    bat_team = st.selectbox("🏏 Batting Team", label_encoders['bat_team'].classes_)
-with col2:
-    # Set default to index 1 so batting and bowling teams are different by default
-    default_bowl_idx = min(1, len(label_encoders['bowl_team'].classes_) - 1)
-    bowl_team = st.selectbox("⚾ Bowling Team", label_encoders['bowl_team'].classes_, index=default_bowl_idx)
-
-venue = st.selectbox("📍 Venue", label_encoders['venue'].classes_)
-
-st.markdown('</div>', unsafe_allow_html=True)
+    venue = st.selectbox("📍 Venue", label_encoders['venue'].classes_)
 
 
 # ─────────────────────────────────────────────
 # Player Selection Card
 # ─────────────────────────────────────────────
-st.markdown('<div class="glass-card"><div class="card-header">👤 Player Details</div>', unsafe_allow_html=True)
-
-col3, col4 = st.columns(2)
-with col3:
-    batsman = st.selectbox("🏏 Batsman (on strike)", label_encoders['batsman'].classes_)
-with col4:
-    # Set default to index 1 so batsman and bowler are different by default
-    default_bowler_idx = min(1, len(label_encoders['bowler'].classes_) - 1)
-    bowler = st.selectbox("🎯 Bowler", label_encoders['bowler'].classes_, index=default_bowler_idx)
-
-st.markdown('</div>', unsafe_allow_html=True)
+with st.container(key="player-details"):
+    st.html('<div class="card-header">👤 Player Details</div>')
+    col3, col4 = st.columns(2)
+    with col3:
+        batsman = st.selectbox("🏏 Batsman (on strike)", label_encoders['batsman'].classes_)
+    with col4:
+        default_bowler_idx = min(1, len(label_encoders['bowler'].classes_) - 1)
+        bowler = st.selectbox("🎯 Bowler", label_encoders['bowler'].classes_, index=default_bowler_idx)
 
 
 # ─────────────────────────────────────────────
 # Current Match Status Card
 # ─────────────────────────────────────────────
-st.markdown('<div class="glass-card"><div class="card-header">📊 Current Match Status</div>', unsafe_allow_html=True)
+with st.container(key="match-status"):
+    st.html('<div class="card-header">📊 Current Match Status</div>')
+    col5, col6, col7 = st.columns(3)
+    with col5:
+        runs = st.number_input("Runs Scored", min_value=0, max_value=400, step=1, value=50)
+    with col6:
+        wickets = st.number_input("Wickets Lost", min_value=0, max_value=10, step=1, value=2)
+    with col7:
+        overs = st.number_input("Overs Completed", min_value=0.0, max_value=20.0, step=0.1, value=6.0)
 
-col5, col6, col7 = st.columns(3)
-with col5:
-    runs = st.number_input("Runs Scored", min_value=0, max_value=400, step=1, value=50)
-with col6:
-    wickets = st.number_input("Wickets Lost", min_value=0, max_value=10, step=1, value=2)
-with col7:
-    overs = st.number_input("Overs Completed", min_value=0.0, max_value=20.0, step=0.1, value=6.0)
-
-striker = st.number_input("Striker's Current Score", min_value=0, max_value=300, step=1, value=20)
-
-st.markdown('</div>', unsafe_allow_html=True)
+    striker = st.number_input("Striker's Current Score", min_value=0, max_value=300, step=1, value=20)
 
 
 # ─────────────────────────────────────────────
@@ -279,11 +252,11 @@ if st.button("⚡ Predict Final Score"):
 
             # Scale and predict
             scaled_input = scaler.transform(encoded_input)
-            prediction = model.predict(scaled_input, verbose=0)[0][0]
+            prediction = model.predict(scaled_input)[0]
             predicted_score = max(int(prediction), runs)  # Score can't be less than current runs
 
-        # Display result
-        st.markdown(f"""
+        # Display result using st.html
+        st.html(f"""
         <div class="result-card">
             <div class="result-label">PREDICTED FINAL SCORE</div>
             <div class="result-score">{predicted_score}</div>
@@ -291,7 +264,7 @@ if st.button("⚡ Predict Final Score"):
                 {bat_team} vs {bowl_team} • {overs} overs bowled • {wickets} wickets down
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
         # Extra insight
         if overs > 0:
@@ -311,4 +284,4 @@ if st.button("⚡ Predict Final Score"):
 # Footer
 # ─────────────────────────────────────────────
 st.markdown("---")
-st.markdown('<div class="footer">Built with TensorFlow & Streamlit • IPL Score Prediction using Neural Networks</div>', unsafe_allow_html=True)
+st.html('<div class="footer">Built with Scikit-Learn & Streamlit • IPL Score Prediction using Random Forest Regressor</div>')
