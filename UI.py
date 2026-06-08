@@ -207,7 +207,9 @@ col1, col2 = st.columns(2)
 with col1:
     bat_team = st.selectbox("🏏 Batting Team", label_encoders['bat_team'].classes_)
 with col2:
-    bowl_team = st.selectbox("⚾ Bowling Team", label_encoders['bowl_team'].classes_)
+    # Set default to index 1 so batting and bowling teams are different by default
+    default_bowl_idx = min(1, len(label_encoders['bowl_team'].classes_) - 1)
+    bowl_team = st.selectbox("⚾ Bowling Team", label_encoders['bowl_team'].classes_, index=default_bowl_idx)
 
 venue = st.selectbox("📍 Venue", label_encoders['venue'].classes_)
 
@@ -223,7 +225,9 @@ col3, col4 = st.columns(2)
 with col3:
     batsman = st.selectbox("🏏 Batsman (on strike)", label_encoders['batsman'].classes_)
 with col4:
-    bowler = st.selectbox("🎯 Bowler", label_encoders['bowler'].classes_)
+    # Set default to index 1 so batsman and bowler are different by default
+    default_bowler_idx = min(1, len(label_encoders['bowler'].classes_) - 1)
+    bowler = st.selectbox("🎯 Bowler", label_encoders['bowler'].classes_, index=default_bowler_idx)
 
 st.markdown('</div>', unsafe_allow_html=True)
 
