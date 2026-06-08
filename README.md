@@ -2,7 +2,16 @@
 
 An AI-powered web application built using **TensorFlow/Keras** and **Streamlit** to predict the final score of an Indian Premier League (IPL) match based on real-time match dynamics.
 
-Live Application: [![Open in Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://share.streamlit.io/deploy?repository=atharvshukla76/ipl-score-predictor&branch=master&main_file=UI.py)
+<table>
+  <tr>
+    <td valign="middle"><strong>Live Application:</strong></td>
+    <td valign="middle">
+      <a href="https://share.streamlit.io/deploy?repository=atharvshukla76/ipl-score-predictor&branch=master&main_file=UI.py" target="_blank">
+        <img src="https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white" height="28" />
+      </a>
+    </td>
+  </tr>
+</table>
 
 ---
 
