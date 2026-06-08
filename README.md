@@ -1,8 +1,7 @@
 # 🏏 IPL Score Predictor
 
 An AI-powered web application built using **TensorFlow/Keras** and **Streamlit** to predict the final score of an Indian Premier League (IPL) match based on real-time match dynamics.
-
-Live Application: [Deploy on Streamlit](https://share.streamlit.io/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=atharvshukla76/ipl-score-predictor&branch=master&main_file=UI.py)
 
 ---
 
