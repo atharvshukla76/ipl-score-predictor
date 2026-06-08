@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import os
 import sys
 
@@ -237,8 +238,8 @@ if st.button("⚡ Predict Final Score"):
         st.warning("⚠️ Please enter some match data to get a meaningful prediction.")
     else:
         with st.spinner("Crunching numbers..."):
-            # Encode inputs
-            encoded_input = [[
+            # Create a DataFrame with correct feature names to avoid MinMaxScaler warnings
+            input_df = pd.DataFrame([[
                 label_encoders['bat_team'].transform([bat_team])[0],
                 label_encoders['bowl_team'].transform([bowl_team])[0],
                 label_encoders['venue'].transform([venue])[0],
@@ -248,10 +249,14 @@ if st.button("⚡ Predict Final Score"):
                 striker,
                 label_encoders['batsman'].transform([batsman])[0],
                 label_encoders['bowler'].transform([bowler])[0]
-            ]]
+            ]], columns=[
+                "bat_team", "bowl_team", "venue",
+                "runs", "wickets", "overs",
+                "striker", "batsman", "bowler"
+            ])
 
             # Scale and predict
-            scaled_input = scaler.transform(encoded_input)
+            scaled_input = scaler.transform(input_df)
             prediction = model.predict(scaled_input)[0]
             predicted_score = max(int(prediction), runs)  # Score can't be less than current runs
 
