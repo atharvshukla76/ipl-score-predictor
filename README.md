@@ -19,9 +19,9 @@
 
 ### 🔴 Live Demo
 
-[![Open in Streamlit](https://img.shields.io/badge/Open%20in%20Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://ipl-score-predictor-ars7mvdxdjj8frsve4djro.streamlit.app)
+[![Open in Streamlit](https://img.shields.io/badge/Open%20in%20Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://ipl-score-predictor-3zry3bj35eqsqnryjbkzmk.streamlit.app/)
 
-👉 **[Click here to try the live app](https://ipl-score-predictor-ars7mvdxdjj8frsve4djro.streamlit.app)**
+👉 **[Click here to try the live app](https://ipl-score-predictor-3zry3bj35eqsqnryjbkzmk.streamlit.app/)**
 
 </div>
 
