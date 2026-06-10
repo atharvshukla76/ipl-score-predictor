@@ -25,15 +25,34 @@
 
 <div align="center">
 
-https://github.com/user-attachments/assets/ipl-score-predictor-demo
+```
+ ┌────────────────────────────────────────────────────┐
+ │              🏏 IPL Score Predictor                │
+ │                                                    │
+ │   🏟️ Match Setup                                   │
+ │   ┌──────────────────┐  ┌──────────────────┐      │
+ │   │ Mumbai Indians   │  │ Chennai Super K. │      │
+ │   └──────────────────┘  └──────────────────┘      │
+ │   📍 Wankhede Stadium, Mumbai                     │
+ │                                                    │
+ │   📊 Current Status                                │
+ │   Runs: 85  │  Wickets: 3  │  Overs: 10.2        │
+ │                                                    │
+ │   ┌────────────────────────────────────────┐      │
+ │   │        ⚡ Predict Final Score           │      │
+ │   └────────────────────────────────────────┘      │
+ │                                                    │
+ │   🏆 Predicted Final Score: 178                    │
+ │                                                    │
+ │   Current RR    Projected RR    Runs Remaining    │
+ │     8.25           8.90              93           │
+ └────────────────────────────────────────────────────┘
+```
 
 > *Select teams, set the match situation, and get an instant AI-powered score prediction!*
 
-| Match Setup | Prediction Result |
-|:-----------:|:-----------------:|
-| Choose batting & bowling teams, venue, batsman & bowler | Get predicted final score with live run-rate metrics |
-
 </div>
+
 
 ### 🖥️ Run It Yourself
 
