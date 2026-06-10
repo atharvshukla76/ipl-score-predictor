@@ -4,9 +4,6 @@ import pandas as pd
 import os
 import sys
 
-# Ensure correct working directory for CSV loading
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
 # ─────────────────────────────────────────────
 # Page Config
 # ─────────────────────────────────────────────
@@ -17,20 +14,172 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
+# Custom Dark Theme CSS
+# ─────────────────────────────────────────────
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ── Global Background & Font ── */
+.stApp {
+    background: linear-gradient(160deg, #0a0e1a 0%, #101829 40%, #0d1522 100%) !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+[data-testid="stHeader"] {
+    background: transparent !important;
+}
+html, body, p, span, label, div {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* ── Title ── */
+h1 {
+    text-align: center !important;
+    font-weight: 800 !important;
+    font-size: 2.6rem !important;
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #ef4444 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    padding-bottom: 10px !important;
+    letter-spacing: -0.5px !important;
+}
+
+/* ── Section Headers ── */
+h2 {
+    color: #fbbf24 !important;
+    font-weight: 700 !important;
+    font-size: 1.35rem !important;
+    border-bottom: 2px solid rgba(251, 191, 36, 0.15) !important;
+    padding-bottom: 8px !important;
+    margin-top: 35px !important;
+}
+
+/* ── All text white ── */
+p, span, label, .stMarkdown, [data-testid="stText"] {
+    color: #e2e8f0 !important;
+}
+
+/* ── Select boxes ── */
+[data-testid="stSelectbox"] > div > div {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid rgba(251, 191, 36, 0.2) !important;
+    border-radius: 10px !important;
+    color: #f8fafc !important;
+    transition: border-color 0.3s ease !important;
+}
+[data-testid="stSelectbox"] > div > div:hover {
+    border-color: rgba(251, 191, 36, 0.5) !important;
+}
+[data-testid="stSelectbox"] label {
+    color: #cbd5e1 !important;
+    font-weight: 500 !important;
+}
+
+/* ── Number inputs ── */
+[data-testid="stNumberInput"] > div > div > input {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid rgba(251, 191, 36, 0.2) !important;
+    border-radius: 10px !important;
+    color: #f8fafc !important;
+    transition: border-color 0.3s ease !important;
+}
+[data-testid="stNumberInput"] > div > div > input:focus {
+    border-color: #fbbf24 !important;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.15) !important;
+}
+[data-testid="stNumberInput"] label {
+    color: #cbd5e1 !important;
+    font-weight: 500 !important;
+}
+
+/* ── Button ── */
+.stButton > button {
+    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 14px 40px !important;
+    width: 100% !important;
+    box-shadow: 0 6px 25px rgba(245, 158, 11, 0.3) !important;
+    transition: all 0.35s ease !important;
+    letter-spacing: 0.5px !important;
+}
+.stButton > button:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 35px rgba(245, 158, 11, 0.45) !important;
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%) !important;
+}
+.stButton > button:active {
+    transform: translateY(0px) !important;
+}
+
+/* ── Success message (prediction result) ── */
+[data-testid="stAlert"] {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(239, 68, 68, 0.08) 100%) !important;
+    border: 1px solid rgba(251, 191, 36, 0.25) !important;
+    border-radius: 14px !important;
+    padding: 20px !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+/* ── Metrics ── */
+[data-testid="stMetric"] {
+    background: rgba(15, 23, 42, 0.7) !important;
+    border: 1px solid rgba(251, 191, 36, 0.12) !important;
+    border-radius: 12px !important;
+    padding: 18px !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+[data-testid="stMetric"]:hover {
+    border-color: rgba(251, 191, 36, 0.35) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.1) !important;
+}
+[data-testid="stMetricLabel"] {
+    color: #94a3b8 !important;
+}
+[data-testid="stMetricValue"] {
+    color: #fbbf24 !important;
+    font-weight: 700 !important;
+}
+
+/* ── Horizontal rule ── */
+hr {
+    border-color: rgba(251, 191, 36, 0.1) !important;
+    margin: 25px 0 !important;
+}
+
+/* ── Spinner ── */
+.stSpinner > div {
+    border-top-color: #fbbf24 !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0e1a; }
+::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(251, 191, 36, 0.5); }
+</style>
+""", unsafe_allow_html=True)
+
+# ─────────────────────────────────────────────
 # Caching the model loading
 # ─────────────────────────────────────────────
 @st.cache_resource(show_spinner=False)
 def load_model():
-    """Train and cache the model so it only trains once."""
-    from main import train_model
-    return train_model()
+    """Load the model instantly if cached, otherwise train it."""
+    from main import get_or_train_model
+    return get_or_train_model()
 
 
-# Title & Subtitle
+# Title
 st.title("🏏 IPL Score Predictor")
-st.write("AI-powered match score prediction using Random Forest Regressor")
 
-with st.spinner("🔄 Training the machine learning model..."):
+with st.spinner("🔄 Loading model..."):
     model, scaler, label_encoders = load_model()
 
 # ─────────────────────────────────────────────
@@ -88,7 +237,6 @@ if st.button("⚡ Predict Final Score"):
         st.warning("⚠️ Please enter some match data to get a meaningful prediction.")
     else:
         with st.spinner("Crunching numbers..."):
-            # Create a DataFrame with correct feature names to avoid MinMaxScaler warnings
             input_df = pd.DataFrame([[
                 label_encoders['bat_team'].transform([bat_team])[0],
                 label_encoders['bowl_team'].transform([bowl_team])[0],
@@ -105,15 +253,12 @@ if st.button("⚡ Predict Final Score"):
                 "striker", "batsman", "bowler"
             ])
 
-            # Scale and predict
             scaled_input = scaler.transform(input_df)
             prediction = model.predict(scaled_input)[0]
-            predicted_score = max(int(prediction), runs)  # Score can't be less than current runs
+            predicted_score = max(int(prediction), runs)
 
-        # Display result
         st.success(f"🏆 Predicted Final Score: {predicted_score}")
 
-        # Extra insight
         if overs > 0:
             current_rr = runs / overs
             projected_rr = predicted_score / 20.0
@@ -125,7 +270,3 @@ if st.button("⚡ Predict Final Score"):
             with col_c:
                 remaining = predicted_score - runs
                 st.metric("Runs Remaining", f"{remaining}")
-
-# Footer
-st.markdown("---")
-st.markdown("<center>Built with Scikit-Learn & Streamlit • IPL Score Prediction using Random Forest Regressor</center>", unsafe_allow_html=True)

@@ -17,7 +17,7 @@ An AI-powered web application built using **TensorFlow/Keras** and **Streamlit**
 
 ## 🚀 Key Features
 
-* **Deep Learning Model:** Powered by a Multi-Layer Perceptron (MLP) built with TensorFlow/Keras.
+* **Machine Learning Model:** Powered by a highly accurate **Random Forest Regressor** built with Scikit-Learn.
 * **Smart Data Preprocessing:** Utilizes Label Encoding for categorical data (teams, venues, players) and Min-Max scaling for numerical inputs.
 * **Premium User Interface:** A modern glassmorphism design with responsive widgets, progress spinners, and dynamic stats layout.
 * **Live Run-Rate Insights:** Provides real-time metrics such as Current Run Rate, Projected Run Rate, and Runs Remaining to win/reach target.
@@ -27,20 +27,19 @@ An AI-powered web application built using **TensorFlow/Keras** and **Streamlit**
 
 ## 🛠️ Model Architecture
 
-The neural network is trained using the **Huber Loss** function (which is robust to outliers) and uses the **Adam** optimizer:
-* **Input Layer:** Normalized match state variables
-* **Hidden Layer 1:** 512 nodes with ReLU activation
-* **Hidden Layer 2:** 256 nodes with ReLU activation
-* **Output Layer:** Linear activation predicting the final target/first innings score
+The model is trained using a **Random Forest Regressor** with optimal hyper-parameters:
+* **Estimators:** 50 decision trees
+* **Max Depth:** 15 (to prevent overfitting while maintaining high feature extraction capability)
+* **Parallelization:** Utilizes all CPU cores (`n_jobs=-1`) for fast local training and deployment.
+* **Accuracy:** Reaches an average Mean Absolute Error (MAE) of **~7.8 runs** (compared to ~14.3 runs of the basic neural network).
 
 ---
 
 ## 📦 Tech Stack
 
 * **Front-end:** Streamlit
-* **Deep Learning:** TensorFlow, Keras
+* **Machine Learning:** Scikit-Learn
 * **Data Manipulation:** Pandas, NumPy
-* **Machine Learning Tools:** Scikit-Learn
 * **Visualization:** Matplotlib, Seaborn
 
 ---
