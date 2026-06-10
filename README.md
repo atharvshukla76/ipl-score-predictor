@@ -17,11 +17,17 @@
 
 <br>
 
+### 🔴 Live Demo
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://atharvshukla76-ipl-score-predictor.streamlit.app)
+
+👉 **[Click here to try the live app](https://atharvshukla76-ipl-score-predictor.streamlit.app)**
+
 </div>
 
 ---
 
-## 🎬 See It In Action
+## 🎬 How It Works
 
 <div align="center">
 
@@ -52,18 +58,6 @@
 > *Select teams, set the match situation, and get an instant AI-powered score prediction!*
 
 </div>
-
-
-### 🖥️ Run It Yourself
-
-```bash
-git clone https://github.com/atharvshukla76/ipl-score-predictor.git
-cd ipl-score-predictor
-pip install -r requirements.txt
-streamlit run UI.py
-```
-
-Then open **http://localhost:8501** and start predicting! 🏏
 
 ---
 
@@ -110,7 +104,7 @@ Then open **http://localhost:8501** and start predicting! 🏏
 
 ---
 
-## 🏗️ How It Works
+## 🏗️ Architecture
 
 ```
 📂 IPL Ball-by-Ball Data (76,000+ deliveries)
@@ -171,30 +165,6 @@ Then open **http://localhost:8501** and start predicting! 🏏
 | **Caching** | Pickle + Streamlit Cache |
 
 </div>
-
----
-
-## 💻 Local Setup
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/atharvshukla76/ipl-score-predictor.git
-cd ipl-score-predictor
-
-# 2. Create virtual environment
-python -m venv tf_env
-tf_env\Scripts\activate        # Windows
-# source tf_env/bin/activate   # Mac/Linux
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Pre-train and cache the model (optional, auto-trains on first run)
-python main.py
-
-# 5. Launch the app
-streamlit run UI.py
-```
 
 ---
 
