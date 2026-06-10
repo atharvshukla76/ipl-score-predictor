@@ -19,7 +19,7 @@
 
 ### 🔴 Live Demo
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://atharvshukla76-ipl-score-predictor.streamlit.app)
+[![Open in Streamlit](https://img.shields.io/badge/Open%20in%20Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://atharvshukla76-ipl-score-predictor.streamlit.app)
 
 👉 **[Click here to try the live app](https://atharvshukla76-ipl-score-predictor.streamlit.app)**
 
